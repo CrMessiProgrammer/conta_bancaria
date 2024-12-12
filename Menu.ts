@@ -2,7 +2,7 @@ import readlinesync = require('readline-sync')
 import { colors } from './src/util/Colors';
 import { Conta } from './src/model/Conta';
 
-// função main = principal (inicializar o programa sempre por aqui)
+// função main = principal (inicializar o programa sempre por aqui) 
 export function main() {
 
     let opcao: number;
@@ -51,7 +51,7 @@ export function main() {
         if (opcao === 9) {
             console.log("\nBanco Rinthians - O Banco mais Fiel do Brasil");
             about();
-            process.exit(0);
+            process.exit(0);    // sair do programa
         }
 
         switch (opcao) {
@@ -94,4 +94,5 @@ export function about(): void {
     console.log("***************************************************\n");
 }
 
+// Chamada para a função 'main()', no qual ela será executada automaticamente quando executar o código
 main();
