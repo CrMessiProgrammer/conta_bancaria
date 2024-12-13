@@ -3,38 +3,25 @@ import { colors } from './src/util/Colors';
 import { Conta } from './src/model/Conta';
 import { ContaCorrente } from './src/model/ContaCorrente';
 import { ContaPoupanca } from './src/model/ContaPoupanca';
+import { ContaController } from './src/controller/ContaController';
 
 // função main = principal (inicializar o programa sempre por aqui) 
 export function main() {
 
-    let opcao: number;
-    
-    // Cria nova Instância (Objeto) da Classe 'ContaCorrente'
-    // Contas Correntes
-    const cc1 = new ContaCorrente(3, 789, 1, "Andressa", 100000, 1000);
-    cc1.visualizar();
-    
-    // Saque na Conta Corrente
-    cc1.sacar(100500);
-    cc1.visualizar();
-    
-    // Depósito na Conta Corrente
-    cc1.depositar(2000);
-    cc1.visualizar();
+    let opcao, numero, agencia, tipo, saldo, limite, aniversario: number;
+    let titular: string;
+    const tipoContas = ['Conta Corrente', 'Conta Poupança'];
 
-    console.log('');
+    // Criando um Objeto da Classe ContaController
+    const contas = new ContaController();
 
-    // Contas Poupanças
-    const cp1 = new ContaPoupanca(4, 101, 2, "Carlos", 1000, 29);
-    cp1.visualizar();
-    
-    // Saque na Conta Poupança
-    cp1.sacar(200);
-    cp1.visualizar();
-    
-    // Depósito na Conta Poupança
-    cp1.depositar(1000);
-    cp1.visualizar();
+    //Novas Instâncias da Classe ContaCorrente (Objetos)
+    contas.cadastrar(new ContaCorrente(contas.gerarNumero(), 1234, 1, 'Amanda Magro', 1000000.00, 100000.00));
+    contas.cadastrar(new ContaCorrente(contas.gerarNumero(), 4578, 1, 'João da Silva', 1000.00, 100.00));
+ 
+    // Novas Instâncias da Classe ContaPoupança (Objetos)
+    contas.cadastrar(new ContaPoupanca(contas.gerarNumero(), 5789, 2, "Geana Almeida", 10000, 10));
+    contas.cadastrar(new ContaPoupanca(contas.gerarNumero(), 5698, 2, "Jean Lima", 15000, 15));
 
     while (true) {
 
@@ -70,31 +57,75 @@ export function main() {
 
         switch (opcao) {
             case 1:
-                console.log("\nCriar Conta\n");
+                console.log(colors.fg.whitestrong, "\nCriar Conta\n", colors.reset);
+                console.log("Digite o Número da Agência: ");
+                agencia = readlinesync.questionInt('');
+
+                console.log("Digite o Nome do Titular: ");
+                titular = readlinesync.question('');
+
+                // 'cancel: false' faz com que a resposta do usuário seja obrigatória (sem possibilidade de cancelar)
+                console.log("escolha o Tipo da Conta: ");
+                tipo = readlinesync.keyInSelect(tipoContas, "", { cancel: false }) + 1;
+
+                console.log("Digite o Saldo da Conta: ");
+                saldo = readlinesync.questionFloat('');
+
+                switch (tipo) {
+                    case 1:
+                        console.log("Digite o Limite da Conta: ");
+                        limite = readlinesync.questionFloat('');
+                        contas.cadastrar(new ContaCorrente(contas.gerarNumero(), agencia, tipo, titular, saldo, limite));
+                        break;
+                    case 2:
+                        console.log("Digite o Dia do Aniversário da Poupança: ");
+                        aniversario = readlinesync.questionInt('');
+                        contas.cadastrar(new ContaPoupanca(contas.gerarNumero(), agencia, tipo, titular, saldo, aniversario));
+                        break;
+                }
+
+                keyPress();
                 break;
             case 2:
-                console.log("\nListar Todas as Contas\n");
+                console.log(colors.fg.whitestrong, "\nListar Todas as Contas\n", colors.reset);
+
+                contas.listarTodas();
+                keyPress();
+
                 break;
             case 3:
-                console.log("\nBuscar Conta por Numero\n");
+                console.log(colors.fg.whitestrong, "\nBuscar Conta por Numero\n", colors.reset);
+
+                console.log("Digite o número da conta: ");
+                numero = readlinesync.questionInt('');
+
+                contas.procurarPorNumero(numero);
+
+                keyPress();
                 break;
             case 4:
                 console.log("\nAtualizar Dados da Conta\n");
+                keyPress();
                 break;
             case 5:
                 console.log("\nApagar Conta\n");
+                keyPress();
                 break;
             case 6:
                 console.log("\nSacar\n");
+                keyPress();
                 break;
             case 7:
                 console.log("\nDepositar\n");
+                keyPress();
                 break;
             case 8:
                 console.log("\nTransferir Valores entre Contas\n");
+                keyPress();
                 break;
             default:
                 console.log("Opção Inválida!");
+                keyPress();
                 break;
         }
     }
@@ -106,6 +137,12 @@ export function about(): void {
     console.log("Carlos Henrique Nunes - teste@gmail.com");
     console.log("https://github.com/CrMessiProgrammer");
     console.log("***************************************************\n");
+}
+
+function keyPress(): void {
+    console.log(colors.reset, "");
+    console.log("\nPressione enter para continuar...");
+    readlinesync.prompt();
 }
 
 // Chamada para a função 'main()', no qual ela será executada automaticamente quando executar o código
