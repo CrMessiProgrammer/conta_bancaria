@@ -1,4 +1,5 @@
-export class Conta {
+// 'abstract' torna a classe abstrata (oculta, não possibilitando instanciar)
+export abstract class Conta {
 
     // Modelo de dados (Características - Atributos / Comportamentos)
     private _numero: number;    // boas práticas colocar o '_' para identificar que é algo privado
