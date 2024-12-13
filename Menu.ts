@@ -139,6 +139,7 @@ export function about(): void {
     console.log("***************************************************\n");
 }
 
+// Cria uma pausa no terminal para o usuário
 function keyPress(): void {
     console.log(colors.reset, "");
     console.log("\nPressione enter para continuar...");
