@@ -32,12 +32,27 @@ export class ContaController implements ContaRepository {
 
     }
 
+    // Tive que pegar 'numero' de dentro da Conta, porque não passei como parâmetro (a ideia é pegar os dados, e substituir)
     atualizar(conta: Conta): void {
-        throw new Error("Method not implemented.");
+        const buscaConta = this.buscarNoArray(conta.numero);
+
+        if (buscaConta !== null){
+            // Bucando a conta por meio do índice
+            this.listaContas[this.listaContas.indexOf(buscaConta)] = conta;
+            console.log("A Conta foi atualizada com sucesso!");
+        } else 
+            console.log("\nConta não encontrada!");
     }
 
     deletar(numero: number): void {
-        throw new Error("Method not implemented.");
+        const buscaConta = this.buscarNoArray(numero);
+
+        if (buscaConta !== null){
+            // Deletando a conta por meio do 'splice' e apagando somente 1 elemento, e bucando a conta por meio do índice ('indexOf')
+            this.listaContas.splice(this.listaContas.indexOf(buscaConta), 1);
+            console.log("A Conta foi Deletada com sucesso!");
+        } else 
+            console.log("\nConta não encontrada!");
     }
 
     sacar(numero: number, valor: number): void {
