@@ -8,7 +8,7 @@ import { ContaController } from './src/controller/ContaController';
 // função main = principal (inicializar o programa sempre por aqui) 
 export function main() {
 
-    let opcao, numero, agencia, tipo, saldo, limite, aniversario: number;
+    let opcao, numero, agencia, tipo, saldo, limite, aniversario, numeroDestino, valor: number;
     let titular: string;
     const tipoContas = ['Conta Corrente', 'Conta Poupança'];
 
@@ -154,15 +154,45 @@ export function main() {
                 keyPress();
                 break;
             case 6:
-                console.log("\nSacar\n");
+                console.log("\nSaque\n");
+
+                console.log("Digite o número da conta: ");
+                numero = readlinesync.questionInt('');
+
+                console.log("Digite o valor do Saque: ");
+                valor = readlinesync.questionFloat('');
+
+                contas.sacar(numero, valor);
+
                 keyPress();
                 break;
             case 7:
-                console.log("\nDepositar\n");
+                console.log("\nDepósito\n");
+
+                console.log("Digite o número da conta: ");
+                numero = readlinesync.questionInt('');
+
+                console.log("Digite o valor do Depósito: ");
+                valor = readlinesync.questionFloat('');
+
+                contas.depositar(numero, valor);
+
                 keyPress();
                 break;
             case 8:
                 console.log("\nTransferir Valores entre Contas\n");
+
+                console.log("Digite o número da conta de origem: ");
+                numero = readlinesync.questionInt('');
+
+                console.log("Digite o número da conta de destino: ");
+                numeroDestino = readlinesync.questionInt('');
+
+                console.log("Digite o valor da Transferência: ");
+                valor = readlinesync.questionFloat('');
+
+                contas.transferir(numero, numeroDestino, valor);
+
                 keyPress();
                 break;
             default:
