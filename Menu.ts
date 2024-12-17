@@ -1,6 +1,5 @@
 import readlinesync = require('readline-sync')
 import { colors } from './src/util/Colors';
-import { Conta } from './src/model/Conta';
 import { ContaCorrente } from './src/model/ContaCorrente';
 import { ContaPoupanca } from './src/model/ContaPoupanca';
 import { ContaController } from './src/controller/ContaController';
@@ -41,7 +40,8 @@ export function main() {
         console.log("           6 - Sacar                               ");
         console.log("           7 - Depositar                           ");
         console.log("           8 - Transferir Valores entre Contas     ");
-        console.log("           9 - Sair                                ");
+        console.log("           9 - Buscar Conta por Titular            ");
+        console.log("           0 - Sair                                ");
         console.log("                                                   ");
         console.log("***************************************************");
         console.log("                                                   ");
@@ -49,7 +49,7 @@ export function main() {
         console.log("Entre com a opção desejada: ", colors.reset);  // reset para de exibir a cor
         opcao = readlinesync.questionInt();
 
-        if (opcao === 9) {
+        if (opcao === 0) {
             console.log("\nBanco Rinthians - O Banco mais Fiel do Brasil");
             about();
             process.exit(0);    // sair do programa
@@ -95,7 +95,7 @@ export function main() {
 
                 break;
             case 3:
-                console.log(colors.fg.whitestrong, "\nBuscar Conta por Numero\n", colors.reset);
+                console.log(colors.fg.whitestrong, "\nConsultar dados da Conta - por número\n", colors.reset);
 
                 console.log("Digite o número da conta: ");
                 numero = readlinesync.questionInt('');
@@ -180,7 +180,7 @@ export function main() {
                 keyPress();
                 break;
             case 8:
-                console.log("\nTransferir Valores entre Contas\n");
+                console.log("\nTransferência entre Contas\n");
 
                 console.log("Digite o número da conta de origem: ");
                 numero = readlinesync.questionInt('');
@@ -192,6 +192,16 @@ export function main() {
                 valor = readlinesync.questionFloat('');
 
                 contas.transferir(numero, numeroDestino, valor);
+
+                keyPress();
+                break;
+            case 9:
+                console.log("\nConsulta pelo Titular\n");
+
+                console.log("Digite o nome do Titular: ");
+                titular = readlinesync.question('');
+
+                contas.procurarPorTitular(titular);
 
                 keyPress();
                 break;
