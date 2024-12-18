@@ -1,3 +1,5 @@
+import { colors } from "../util/Colors";
+
 // 'abstract' torna a classe abstrata (oculta, não possibilitando instanciar)
 export abstract class Conta {
 
@@ -63,7 +65,7 @@ export abstract class Conta {
     // Método Auxiliar (ação)
     public sacar(valor: number): boolean{
         if (valor > this._saldo) {
-            console.log("Saldo Insuficiente!");
+            console.log(colors.fg.redstrong, "\nSaldo Insuficiente!", colors.reset);
             return false;            
         }
         this._saldo -= valor;
@@ -87,7 +89,7 @@ export abstract class Conta {
                 tipo = "Conta Poupança";
                 break;
             default:
-                tipo = "Tipo Inválido";
+                tipo = colors.fg.redstrong, "\nTipo Inválido", colors.reset;
                 break;
         }
 

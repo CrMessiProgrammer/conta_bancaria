@@ -1,3 +1,4 @@
+import { colors } from "../util/Colors";
 import { Conta } from "./Conta";
 
 export class ContaCorrente extends Conta{
@@ -21,7 +22,7 @@ export class ContaCorrente extends Conta{
     public sacar(valor: number): boolean{
         // Para atributos de dentro da própria classe usar com o '_', para os de fora usar sem
         if (valor > (this.saldo + this._limite)) {
-            console.log("Saldo Insuficiente!");
+            console.log(colors.fg.redstrong, "\nSaldo Insuficiente!", colors.reset);
             return false;            
         }
         this.saldo -= valor;

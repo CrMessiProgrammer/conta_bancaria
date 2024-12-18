@@ -1,5 +1,6 @@
 import { Conta } from "../model/Conta";
 import { ContaRepository } from "../repository/ContaRepository";
+import { colors } from "../util/Colors";
 
 export class ContaController implements ContaRepository {
     
@@ -24,8 +25,7 @@ export class ContaController implements ContaRepository {
         if (buscaConta !== null)
             buscaConta.visualizar();
         else
-            console.log("\nConta não encontrada!");
-
+            console.log(colors.fg.redstrong, "\nConta não encontrada!", colors.reset);
     }
 
     listarTodas(): void {
@@ -37,7 +37,7 @@ export class ContaController implements ContaRepository {
     // Recebe como parâmetro um Objeto da classe Conta
     cadastrar(conta: Conta): void {
         this.listaContas.push(conta);
-        console.log("A Conta foi cadastrada com sucesso!");
+        console.log(colors.fg.greenstrong, "\nA Conta foi cadastrada com sucesso!", colors.reset);
 
     }
 
@@ -48,9 +48,9 @@ export class ContaController implements ContaRepository {
         if (buscaConta !== null) {
             // Bucando a conta por meio do índice
             this.listaContas[this.listaContas.indexOf(buscaConta)] = conta;
-            console.log("A Conta foi atualizada com sucesso!");
+            console.log(colors.fg.greenstrong, "\nA Conta foi atualizada com sucesso!", colors.reset);
         } else
-            console.log("\nConta não encontrada!");
+            console.log(colors.fg.redstrong, "\nConta não encontrada!", colors.reset);
     }
 
     deletar(numero: number): void {
@@ -59,9 +59,9 @@ export class ContaController implements ContaRepository {
         if (buscaConta !== null) {
             // Deletando a conta por meio do 'splice' e apagando somente 1 elemento, e bucando a conta por meio do índice ('indexOf')
             this.listaContas.splice(this.listaContas.indexOf(buscaConta), 1);
-            console.log("A Conta foi Deletada com sucesso!");
+            console.log(colors.fg.redstrong, `\nConta Nº ${buscaConta.numero} (Titular: ${buscaConta.titular}) -> Deletada com Sucesso!`, colors.reset);
         } else
-            console.log("\nConta não encontrada!");
+            console.log(colors.fg.redstrong, "\nConta não encontrada!", colors.reset);
     }
 
     // Métodos Bancários
@@ -71,10 +71,10 @@ export class ContaController implements ContaRepository {
         // O método é boolean
         if (buscaConta !== null) {
             if (buscaConta.sacar(valor) === true) {
-                console.log("O Saque foi efetuado com sucesso!");
+                console.log(colors.fg.greenstrong, "\nO Saque foi efetuado com sucesso!", colors.reset);
             }
         } else
-            console.log("\nConta não encontrada!");
+            console.log(colors.fg.redstrong, "\nConta não encontrada!", colors.reset);
     }
 
     depositar(numero: number, valor: number): void {
@@ -82,9 +82,9 @@ export class ContaController implements ContaRepository {
 
         if (buscaConta !== null) {
             buscaConta.depositar(valor);
-            console.log("O Depósito foi efetuado com sucesso!");
+            console.log(colors.fg.greenstrong, "\nO Depósito foi efetuado com sucesso!", colors.reset);
         } else
-            console.log("\nConta não encontrada!");
+            console.log(colors.fg.redstrong, "\nConta não encontrada!", colors.reset);
     }
 
     transferir(numeroOrigem: number, numeroDestino: number, valor: number): void {
@@ -94,10 +94,10 @@ export class ContaController implements ContaRepository {
         if (contaOrigem !== null && contaDestino !== null) {
             if (contaOrigem.sacar(valor) === true) {
                 contaDestino.depositar(valor);
-                console.log("A Transferência foi efetuado com sucesso!");
+                console.log(`\nTransferência de:\nTitular: ${contaOrigem.titular} (Conta Nº ${contaOrigem.numero}) para Titular: ${contaDestino.titular} (Conta Nº ${contaDestino.numero}) -> Efetuada com Sucesso!`);
             }
         } else
-            console.log("\nConta de Origem e/ou Conta de Destino não foi encontrada!");
+            console.log(colors.fg.redstrong, "\nConta de Origem e/ou Conta de Destino não foi encontrada!", colors.reset);
     }
 
     // Métodos Auxiliares

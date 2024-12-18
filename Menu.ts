@@ -24,40 +24,41 @@ export function main() {
 
     while (true) {
 
-        console.log(colors.bg.black, colors.fg.green);
-        console.log("***************************************************");
-        console.log("                                                   ");
-        console.log("                  Banco Rinthians                  ");
-        console.log("                O + Fiel do Brasil!                ");
-        console.log("                                                   ");
-        console.log("***************************************************");
-        console.log("                                                   ");
-        console.log("           1 - Criar Conta                         ");
-        console.log("           2 - Listar Todas as Contas              ");
-        console.log("           3 - Buscar Conta por Numero             ");
-        console.log("           4 - Atualizar Dados da Conta            ");
-        console.log("           5 - Apagar Conta                        ");
-        console.log("           6 - Sacar                               ");
-        console.log("           7 - Depositar                           ");
-        console.log("           8 - Transferir Valores entre Contas     ");
-        console.log("           9 - Buscar Conta por Titular            ");
-        console.log("           0 - Sair                                ");
-        console.log("                                                   ");
-        console.log("***************************************************");
-        console.log("                                                   ");
+        console.log("                                                       ");
+        console.log(colors.bg.whitebright, colors.fg.bluestrong, "***************************************************  ");
+        console.log("                                                       ");
+        console.log("                    Banco InovTech                     ");
+        console.log("                  O + Tech do Brasil!                  ");
+        console.log("                                                       ");
+        console.log("  ***************************************************  ");
+        console.log("                                                       ");
+        console.log("             1 - Criar Conta                           ");
+        console.log("             2 - Listar Todas as Contas                ");
+        console.log("             3 - Buscar Conta por Numero               ");
+        console.log("             4 - Atualizar Dados da Conta              ");
+        console.log("             5 - Apagar Conta                          ");
+        console.log("             6 - Sacar                                 ");
+        console.log("             7 - Depositar                             ");
+        console.log("             8 - Transferir Valores entre Contas       ");
+        console.log("             9 - Buscar Conta por Titular              ");
+        console.log("             0 - Sair                                  ");
+        console.log("                                                       ");
+        console.log("  ***************************************************  ");
+        console.log("                                                       ");
 
-        console.log("Entre com a opção desejada: ", colors.reset);  // reset para de exibir a cor
+        console.log("Entre com a opção desejada:                           ", colors.reset);  // reset para de exibir a cor
         opcao = readlinesync.questionInt();
 
         if (opcao === 0) {
-            console.log("\nBanco Rinthians - O Banco mais Fiel do Brasil");
+            console.log(colors.fg.yellowstrong, "                                                     ");
+            console.log("Banco InovTech -> O Banco + Tech do Brasil!\n");
             about();
             process.exit(0);    // sair do programa
         }
 
         switch (opcao) {
             case 1:
-                console.log(colors.fg.whitestrong, "\nCriar Conta\n", colors.reset);
+                console.log(colors.fg.greenstrong, "\nCriar Conta\n");
 
                 console.log("Digite o Número da Agência: ");
                 agencia = readlinesync.questionInt('');
@@ -79,23 +80,31 @@ export function main() {
                         contas.cadastrar(new ContaCorrente(contas.gerarNumero(), agencia, tipo, titular, saldo, limite));
                         break;
                     case 2:
-                        console.log("Digite o Dia do Aniversário da Poupança: ");
-                        aniversario = readlinesync.questionInt('');
-                        contas.cadastrar(new ContaPoupanca(contas.gerarNumero(), agencia, tipo, titular, saldo, aniversario));
-                        break;
+                        while (true) {
+                            console.log("Digite o Dia do Aniversário da Poupança: ");
+                            aniversario = readlinesync.questionInt('');
+                            if (aniversario >= 1 && aniversario <= 28) {
+                                contas.cadastrar(new ContaPoupanca(contas.gerarNumero(), agencia, tipo, titular, saldo, aniversario));
+                                break;
+                            } else {
+                                console.log(colors.fg.redstrong, "\nValor Inválido! Digite o Dia do Aniversário da Poupança entre 1 e 28.\n", colors.reset);
+                            }
+                        }
                 }
 
                 keyPress();
+                console.log(colors.reset);
                 break;
             case 2:
-                console.log(colors.fg.whitestrong, "\nListar Todas as Contas\n", colors.reset);
+                console.log(colors.fg.greenstrong, "\nListar Todas as Contas\n");
 
                 contas.listarTodas();
-                keyPress();
 
+                keyPress();
+                console.log(colors.reset);
                 break;
             case 3:
-                console.log(colors.fg.whitestrong, "\nConsultar dados da Conta - por número\n", colors.reset);
+                console.log(colors.fg.greenstrong, "\nConsultar dados da Conta - por número\n");
 
                 console.log("Digite o número da conta: ");
                 numero = readlinesync.questionInt('');
@@ -103,9 +112,10 @@ export function main() {
                 contas.procurarPorNumero(numero);
 
                 keyPress();
+                console.log(colors.reset);
                 break;
             case 4:
-                console.log("\nAtualizar Dados da Conta\n");
+                console.log(colors.fg.greenstrong, "\nAtualizar Dados da Conta\n");
 
                 console.log("Digite o número da conta: ");
                 numero = readlinesync.questionInt('');
@@ -142,9 +152,10 @@ export function main() {
                     console.log("Conta não encontrada!");
                 }
                 keyPress();
+                console.log(colors.reset);
                 break;
             case 5:
-                console.log("\nApagar Conta\n");
+                console.log(colors.fg.greenstrong, "\nApagar Conta\n");
 
                 console.log("Digite o número da conta: ");
                 numero = readlinesync.questionInt('');
@@ -152,9 +163,10 @@ export function main() {
                 contas.deletar(numero);
 
                 keyPress();
+                console.log(colors.reset);
                 break;
             case 6:
-                console.log("\nSaque\n");
+                console.log(colors.fg.greenstrong, "\nSaque\n");
 
                 console.log("Digite o número da conta: ");
                 numero = readlinesync.questionInt('');
@@ -165,22 +177,30 @@ export function main() {
                 contas.sacar(numero, valor);
 
                 keyPress();
+                console.log(colors.reset);
                 break;
             case 7:
-                console.log("\nDepósito\n");
+                console.log(colors.fg.greenstrong, "\nDepósito\n");
 
                 console.log("Digite o número da conta: ");
                 numero = readlinesync.questionInt('');
 
-                console.log("Digite o valor do Depósito: ");
-                valor = readlinesync.questionFloat('');
-
-                contas.depositar(numero, valor);
-
+                while (true) {
+                    console.log("Digite o valor do Depósito: ");
+                    valor = readlinesync.questionFloat('');
+                    if (valor <= 0) {
+                        console.log(colors.fg.redstrong, "\nValor Inválido! Digite novamente.\n", colors.reset);
+                    } else {
+                        contas.depositar(numero, valor);
+                        break;
+                    }    
+                }
+                
                 keyPress();
+                console.log(colors.reset);
                 break;
             case 8:
-                console.log("\nTransferência entre Contas\n");
+                console.log(colors.fg.greenstrong, "\nTransferência entre Contas\n");
 
                 console.log("Digite o número da conta de origem: ");
                 numero = readlinesync.questionInt('');
@@ -194,9 +214,10 @@ export function main() {
                 contas.transferir(numero, numeroDestino, valor);
 
                 keyPress();
+                console.log(colors.reset);
                 break;
             case 9:
-                console.log("\nConsulta pelo Titular\n");
+                console.log(colors.fg.greenstrong, "\nConsulta pelo Titular\n");
 
                 console.log("Digite o nome do Titular: ");
                 titular = readlinesync.question('');
@@ -204,9 +225,10 @@ export function main() {
                 contas.procurarPorTitular(titular);
 
                 keyPress();
+                console.log(colors.reset);
                 break;
             default:
-                console.log("Opção Inválida!");
+                console.log(colors.fg.redstrong, "\nOpção Inválida!", colors.reset);
                 keyPress();
                 break;
         }
@@ -214,11 +236,13 @@ export function main() {
 }
 
 export function about(): void {
-    console.log("\n***************************************************");
-    console.log("Projeto Desenvolvido por: ");
-    console.log("Carlos Henrique Nunes - teste@gmail.com");
-    console.log("https://github.com/CrMessiProgrammer");
-    console.log("***************************************************\n");
+    console.log(colors.bg.yellowbright, colors.fg.black, "                                                     ");
+    console.log("  ***************************************************  ");
+    console.log("   Projeto Desenvolvido por:                           ");
+    console.log("   Carlos Henrique Nunes - teste@gmail.com             ");
+    console.log("   https://github.com/CrMessiProgrammer                ");
+    console.log("  ***************************************************  ");
+    console.log("                                                     ", colors.reset);
 }
 
 // Cria uma pausa no terminal para o usuário
